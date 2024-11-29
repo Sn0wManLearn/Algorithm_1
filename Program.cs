@@ -37,9 +37,14 @@ class HeapSortTasks
         // Console.WriteLine(JsonSerializer.Serialize(tasks));
 
         // Task 2
-        long[] phoneNumbers = [9876543210L, 1234567890L, 5555555555L, 1000000000L];
-        SortPhoneNumbers(phoneNumbers);
-        Console.WriteLine(JsonSerializer.Serialize(phoneNumbers));
+        // long[] phoneNumbers = [9876543210L, 1234567890L, 5555555555L, 1000000000L];
+        // SortPhoneNumbers(phoneNumbers);
+        // Console.WriteLine(JsonSerializer.Serialize(phoneNumbers));
+
+        // Task 3
+        string text = "Hello World111";
+        
+        CountingLetters(text);
     }
 
     private static void CountingSort(long[] arr, int exp)
@@ -76,6 +81,31 @@ class HeapSortTasks
         for(int exp = 1; max / exp > 0; exp *= 10)
         {
             CountingSort(arr, exp);
+        }
+    }
+
+    public static void CountingLetters(string text)
+    {
+        text = text.ToLower();
+        char[] chars = text.ToCharArray();
+        int[] count = new int[26];
+        for(int i = 0; i < chars.Length; i ++)
+        {
+            if(char.IsLetter(chars[i])) count[chars[i] - 'a']++;
+        }
+
+        Dictionary<char, int> letterCount = new Dictionary<char, int>();
+
+        for( int i = 0; i < count.Length; i++)
+        {
+            if(count[i] > 0) letterCount.Add((char) (i + 'a'), count[i]);
+        }
+
+        letterCount = letterCount.OrderBy(x => x.Key).ToDictionary();
+
+        foreach(var letter in letterCount)
+        {
+            Console.WriteLine(letter.Key + ": " + letter.Value);
         }
     }
 }
